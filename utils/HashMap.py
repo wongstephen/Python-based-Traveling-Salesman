@@ -1,4 +1,4 @@
-class HashMap:
+class Hashmap:
     #initializes the size of the hashmap. recommended to be a prime number
     def __init__(self, size):
         self.data = [None]*size
@@ -35,14 +35,37 @@ class HashMap:
             if self.data[hashed][i][0] == key:
                 del self.data[hashed][i]
                 return
+        return None
 
-    def getKeys(self):
+    #returns all keys in the hashmap
+    def get_keys(self):
         keys = []
         for i in range(len(self.data)):
             if self.data[i] is not None:
                 for j in range(len(self.data[i])):
                     keys.append(self.data[i][j][0])
         return keys
+    
+    #returns the value of the key
+    def get_value(self, key):
+        #hashes the key to find index
+        hashed = self.__hash(key)
+        #iterates through the list at the hashed index and returns the value if found
+        for i in range(len(self.data[hashed])):
+            if self.data[hashed][i][0] == key:
+                return self.data[hashed][i][1]
+        return None
 
-    def getList(self):
+    #returns entire list in the hast table
+    def get_list(self):
         return self.data
+    
+    def size(self):
+        return len(self.data)
+    
+    def __str__(self):
+        string = ""
+        for i in range(len(self.data)):
+            if self.data[i] is not None:
+                string += str(i) + ": " + str(self.data[i]) + "\n"
+        return string
