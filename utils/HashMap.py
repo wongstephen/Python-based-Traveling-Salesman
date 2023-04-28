@@ -9,7 +9,7 @@ class Hashmap:
     def __hash(self, key):
         hashed = 0
         for i in range(len(key)):
-            hashed = ord(key[i])
+            hashed = hashed + ord(key[i])
         return hashed % len(self.data)
 
     #inserts a key value pair into the hashmap

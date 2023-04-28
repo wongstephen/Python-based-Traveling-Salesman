@@ -74,4 +74,4 @@ class Package_model:
         self.delivery_time = delivery_time
 
     def __str__(self):
-        return f"{self.id}, {self.address}, {self.city}, {self.state}, {self.zip}, {self.deadline}, {self.weight}, {self.notes if self.notes else 'N/A'}, {self.status}, {self.delivery_time.strftime('%I:%M %p') if self.delivery_time else 'N/A'}"
+        return f"{self.id}, {self.address}, {self.city}, {self.state}, {self.zip}, {self.deadline}, {self.weight}, {self.notes if self.notes else 'N/A'}, {f'Enroute on truck {self.truck}' if self.status == 'Enroute' else self.status}, {self.delivery_time.strftime('%I:%M %p') if self.delivery_time else 'N/A'}"

@@ -55,7 +55,7 @@ while running:
     truck2.set_departure(datetime.datetime(1970, 1, 1, 9, 15, 0))
     truck2.set_id(2)
     truck3 = Truck_model()
-    truck3.set_departure(datetime.datetime(1970, 1, 1, 10, 30, 0))
+    truck3.set_departure(datetime.datetime(1970, 1, 1, 10, 45, 0))
     truck3.set_id(3)
     print()
     print("Loading Trucks with Packages...")
@@ -92,7 +92,8 @@ while running:
 
         #sets all packages in the truck to enroute
         for package in truck.get_package_load():
-            package.set_status("Enroute on Truck " + str(truck.get_id()))
+            # package.set_status("Enroute on Truck " + str(truck.get_id()))
+            package.set_status("Enroute")
 
         #delivers the package to the next address that is closest to the current address
         while (len(truck.get_package_load()) > 0): 
@@ -122,7 +123,7 @@ while running:
     run_truck(Colors.red, truck3)
     print()
 
-    print(Colors.green, f"Total miles traveld by all trucks: {get_total_miles_traveled(truck1, truck2, truck3)}") #returns the total miles traveled by all trucks
+    print(Colors.green, f"Total miles traveled by all trucks: {get_total_miles_traveled(truck1, truck2, truck3)}") #returns the total miles traveled by all trucks
     print()
 
     print_main_menu(Colors.default) #prints the main menu
@@ -138,7 +139,10 @@ while running:
 
     if main_menu_input == "1":
         print_packages_status()
-        print(Colors.darkgrey, f"Total miles traveld by all trucks: {get_total_miles_traveled(truck1, truck2, truck3)}")
+        print()
+
+        print(Colors.darkgrey, f"Total miles traveled by all trucks: {get_total_miles_traveled(truck1, truck2, truck3)}")
+        print()
 
     #prints the package status based on the time selected
     elif main_menu_input == "2":
@@ -187,6 +191,8 @@ while running:
         for package in package_log.get_value(package_log.get_keys()[time_sel - 1]):
             if package.get_status() == "Delivered":
                 print(Colors.green, package)
+            elif package.get_status() == "Enroute":
+                print(Colors.yellow, package)
             else:
                 print(Colors.default, package)
         print(Colors.blue, "Total Packages:", len(package_log.get_value(package_log.get_keys()[time_sel - 1])))

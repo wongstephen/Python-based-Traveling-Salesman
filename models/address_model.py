@@ -3,6 +3,8 @@ class Address_model:
         self.id = id
         self.name = name
         self.address = address
+        self.city = None
+        self.state = None
         self.zip = zip
 
     def get_id(self):
@@ -22,6 +24,18 @@ class Address_model:
 
     def get_name(self):
         return self.name
+    
+    def get_state(self):
+        return self.state
+    
+    def set_state(self, state):
+        self.state = state
+
+    def get_city(self):
+        return self.city
+    
+    def set_city(self, city):
+        self.city = city
     
     def __str__(self):
         return f"{self.name}, {self.address}, {self.zip}"
