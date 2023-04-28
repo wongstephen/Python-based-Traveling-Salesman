@@ -15,3 +15,4 @@ class Colors:
     lightblue = '\033[94m'
     pink = '\033[95m'
     lightcyan = '\033[96m'
+    default = '\033[0m'

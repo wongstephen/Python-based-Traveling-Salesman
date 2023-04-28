@@ -60,6 +60,7 @@ class Hashmap:
     def get_list(self):
         return self.data
     
+    #returns the size of the hashmap
     def size(self):
         return len(self.data)
     

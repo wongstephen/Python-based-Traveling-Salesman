@@ -1,4 +1,4 @@
-class PackageModel:
+class Package_model:
     def __init__(self, id, address, city, state, zip, deadline, weight, notes):
         self.id = id
         self.address = address
@@ -9,58 +9,69 @@ class PackageModel:
         self.weight = weight
         self.notes = notes
         self.truck = None
-        self.status = "hub"
+        self.status = "At Hub" #At Hub, Out for Delivery, Delivered
         self.departure = None
-        self.delivery = None
+        self.delivery_time = None
 
-    def getId(self):
+    def get_id(self):
         return self.id
     
-    def getAddress(self):
+    def get_address(self):
         return self.address
     
-    def getCity(self):
+    def set_address(self, address):
+        self.address = address
+    
+    def get_city(self):
         return self.city
     
-    def getState(self):
+    def set_city(self, city):
+        self.city = city
+            
+    def get_state(self):
         return self.state
     
-    def getZip(self):
+    def set_state(self, state):
+        self.state = state
+
+    def get_zip(self):
         return self.zip
     
-    def getDeadline(self):
+    def set_zip(self, zip):
+        self.zip = zip
+    
+    def get_deadline(self):
         return self.deadline
     
-    def getWeight(self):
+    def get_weight(self):
         return self.weight
     
-    def getNotes(self):
+    def get_notes(self):
         return self.notes
     
-    def getTruck(self):
-        return self.truck
-    
-    def setTruck(self, truck):
-        self.truck = truck
-
-    def getStatus(self):
+    def get_status(self):
         return self.status
     
-    def setStatus(self, status):
-        self.status = status
-
-    def getDeparture(self):
+    def get_truck(self):
+        return self.truck
+    
+    def get_departure(self):
         return self.departure
     
-    def setDeparture(self, departure):
+    def get_delivery_time(self):
+        return self.delivery_time
+    
+    def set_status(self, status):
+        self.status = status
+
+    def set_truck(self, truck):
+        self.truck = truck
+
+    def set_departure(self, departure):
         self.departure = departure
 
-    def getDelivery(self):
-        return self.delivery
-    
-    def setDelivery(self, delivery):
-        self.delivery = delivery
+    def set_delivery_time(self, delivery_time):
+        self.delivery_time = delivery_time
 
     def __str__(self):
-        return "Package ID: " + self.id + " Address: " + self.address + " City: " + self.city + " State: " + self.state + " Zip: " + self.zip + " Deadline: " + self.deadline + " Weight: " + self.weight + " Notes: " + self.notes + " Truck: " + str(self.truck) + " Departure: " + str(self.departure) + " Delivery: " + str(self.delivery)
-
+        return f"{self.id}, {self.address}, {self.city}, {self.state}, {self.zip}, {self.deadline}, {self.weight}, {self.notes if self.notes else 'N/A'}, {self.status}, {self.delivery_time.strftime('%I:%M %p') if self.delivery_time else 'N/A'}"
