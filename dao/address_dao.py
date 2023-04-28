@@ -3,6 +3,8 @@ from models.address_model import Address_model
 import csv
 
 #load the addresses csv into a Hashmap
+#space complexity is O(n)
+#time complexity is O(n)
 addresses_map = Hashmap(100)
 def load_addresses():
     with open('data/addresses.csv', encoding='utf-8-sig', newline='') as adddressFile:

@@ -1,6 +1,9 @@
 from dao.address_dao import addresses_map
 from dao.distances_dao import distances
 
+# takes two addresses and returns the distance between them
+# time complexity is O(1)
+# space complexity is O(1)
 def find_distance (address1, address2):
     # params are a string of the address
     # get the address with the address as the key
@@ -11,7 +14,10 @@ def find_distance (address1, address2):
         return round(float(distances[address_1][address_2]),1)
     else:
         return round(float(distances[address_2][address_1]),1)
-    
+
+# takes a truck object and returns the shortest distance from the current address
+# time complexity is O(n)
+# space complexity is O(1)    
 def get_shortest_distance(truck):
     # get the shortest distance from the current address
     # returns package object with shortest distance

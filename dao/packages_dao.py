@@ -5,6 +5,8 @@ import csv
 #load the packages csv into a Hashmap
 packages_map = Hashmap(100)
 
+#space complexity is O(n)
+#time complexity is O(n)
 def load_packages():
     with open('data/packages.csv', encoding='utf-8-sig', newline='') as packagesFile:
         reader = csv.reader(packagesFile)

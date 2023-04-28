@@ -1,3 +1,5 @@
+#space complexity: O(n)
+#time complexity: O(n)
 class Hashmap:
     #initializes the size of the hashmap. recommended to be a prime number
     def __init__(self, size):

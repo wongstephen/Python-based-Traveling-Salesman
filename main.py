@@ -16,8 +16,9 @@ from models.truck_model import Truck_model
 from utils.log_utils import package_log
 from utils.main_utils import get_total_miles_traveled
 
-
 #takes a snapshot of the packages at the current time and returns an array of package objects
+#space complexity is O(n) 
+#time complexity is O(n)
 def package_snapshot():
     package_arr = []
     for package in packages_map.get_keys():
@@ -83,13 +84,15 @@ while running:
     print()
 
     # encapulates truck functions 
+    # time complexity is O(n^2) it loops through trucks then through packages. 
+    # space complexity is O(n)
     def run_truck(text_color, truck):
         #sets the truck status to in service
-        truck.set_status("In service")
+        truck.set_status("Delivering")
 
         #sets all packages in the truck to enroute
         for package in truck.get_package_load():
-            package.set_status("Out for Delivery")
+            package.set_status("Enroute on Truck " + str(truck.get_id()))
 
         #delivers the package to the next address that is closest to the current address
         while (len(truck.get_package_load()) > 0): 
@@ -182,8 +185,12 @@ while running:
         print(Colors.black, "--------------------------------------------------------------------------------------------------------------------")
         print(Colors.default)
         for package in package_log.get_value(package_log.get_keys()[time_sel - 1]):
-            print(package)
-        print("Total Packages:", len(package_log.get_value(package_log.get_keys()[time_sel - 1])))
+            if package.get_status() == "Delivered":
+                print(Colors.green, package)
+            else:
+                print(Colors.default, package)
+        print(Colors.blue, "Total Packages:", len(package_log.get_value(package_log.get_keys()[time_sel - 1])))
+        print(Colors.default)
 
     #exits program
     elif main_menu_input == "4":

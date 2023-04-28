@@ -15,6 +15,9 @@ def print_main_menu(color):
     print(Colors.default)
 
 #prints all packages status
+#packages are sorted by delivery time
+#space complexity: O(n)
+#time complexity: O(n)
 def print_packages_status():
     print()
     package_list = []
