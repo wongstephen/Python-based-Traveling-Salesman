@@ -8,8 +8,9 @@ class Hashmap:
     #hashing fuction. returns the hashed key
     def __hash(self, key):
         hashed = 0
+        prime = 31
         for i in range(len(key)):
-            hashed = hashed + ord(key[i])
+            hashed += ord(key[i]) ** prime
         return hashed % len(self.data)
 
     #inserts a key value pair into the hashmap
@@ -18,9 +19,8 @@ class Hashmap:
         hashed = self.__hash(key)
         #checks if index is null. 
         if self.data[hashed] is None:
-            #if there is no list at the index, one is created with the key value
-            self.data[hashed] = [[key, value]]
-            return
+            #if there is no list at the index, one is create
+            self.data[hashed] = []
         #check the list to see if the key is in the list
         for i in range(len(self.data[hashed])):
             if self.data[hashed][i][0] == key:

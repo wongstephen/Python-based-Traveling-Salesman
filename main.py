@@ -14,7 +14,7 @@ from models.package_model import Package_model
 from models.address_model import Address_model
 from models.truck_model import Truck_model
 from utils.log_utils import package_log
-from utils.main_utils import get_total_miles_traveled
+from utils.main_utils import get_total_miles_traveled, get_all_by_time
 
 #takes a snapshot of the packages at the current time and returns an array of package objects
 #space complexity is O(n) 
@@ -79,7 +79,7 @@ while running:
             trucks.get(key).load_package(package_object)
             package_object.set_truck(key)
         print("Truck ", key, " loaded with packages: ", hub_packages.get(key))
-    package_log.insert(str(datetime.time(8,0,0).strftime('%I:%M%p')), package_snapshot())
+    package_log.insert(str(datetime.time(8,0,0).strftime('%I:%M %p')), package_snapshot())
 
     print()
 
@@ -111,7 +111,7 @@ while running:
             truck.deliver_package(shortest_package.get('package')) #deliver the package and remove from payload           
             truck.set_current_location(shortest_package.get('package').get_address()) #set truck to last known address
             
-            package_log.insert(str(package_delivery_time.strftime('%I:%M%p')), package_snapshot())
+            package_log.insert(str(package_delivery_time.strftime('%I:%M %p')), package_snapshot())
 
         truck.set_status("Not in Service")
 
@@ -146,15 +146,21 @@ while running:
 
     #prints the package status based on the time selected
     elif main_menu_input == "2":
-        #prints the time selection menu
-        for i in range(len(package_log.get_keys())):
-            print(i + 1, ":", package_log.get_keys()[i])
-            time.sleep(.05)
+
+                
+        times = package_log.get_keys()
+        sorted_times = sorted(times, key=lambda x: x)
+        print(sorted_times)
+    
+        for i in range(len(sorted_times)):
+            print(i + 1, ":", sorted_times[i])
         print()
 
         time_sel = -1
         while time_sel < 1 or time_sel > len(package_log.get_keys()):
-             time_sel = int(input("Please select a time: "))
+            time_sel = int(input("Please select a time: ")) 
+
+        log_at_time_sel = sorted_times[time_sel - 1]
         print()
         
         #prints the package selection menu
@@ -164,7 +170,7 @@ while running:
         print()
         
         #returns the package object based on the time and package selected
-        selected_package = package_log.get_value(package_log.get_keys()[time_sel - 1])
+        selected_package = package_log.get_value(log_at_time_sel)
         for package in selected_package:
             if package.get_id() == str(package_sel):
                 print(Colors.green, "PackageID, Address, City, State, Zip, Delivery Deadline, Mass KILO, PageSpecial Notes, Status, DeliveryTime")
@@ -174,34 +180,44 @@ while running:
    
     #prints all packages at a specific time
     elif main_menu_input == "3":
+        get_all_by_time()
+        """  
         #print all times available to select
-        for i in range(len(package_log.get_keys())):
-            print(i + 1, ":", package_log.get_keys()[i])
+        
+        times = package_log.get_keys()
+        sorted_times = sorted(times, key=lambda x: x)
+        print(sorted_times)
+    
+        for i in range(len(sorted_times)):
+            print(i + 1, ":", sorted_times[i])
         print()
 
         time_sel = -1
         while time_sel < 1 or time_sel > len(package_log.get_keys()):
             time_sel = int(input("Please select a time: ")) 
+
+        log_at_time_sel = sorted_times[time_sel - 1]
         print()
 
-        print("You selected to view all packages at", package_log.get_keys()[time_sel - 1])
+        print("You selected to view all packages at", log_at_time_sel)
         print(Colors.green, "PackageID, Address, City, State, Zip, Delivery Deadline, Mass KILO, PageSpecial Notes, Status, DeliveryTime")
         print(Colors.black, "--------------------------------------------------------------------------------------------------------------------")
         print(Colors.default)
-        for package in package_log.get_value(package_log.get_keys()[time_sel - 1]):
+        for package in package_log.get_value(log_at_time_sel):
             if package.get_status() == "Delivered":
                 print(Colors.green, package)
             elif package.get_status() == "Enroute":
                 print(Colors.yellow, package)
             else:
-                print(Colors.default, package)
-        print(Colors.blue, "Total Packages:", len(package_log.get_value(package_log.get_keys()[time_sel - 1])))
+                print(Colors.default, package) 
+        """
         print(Colors.default)
 
     #exits program
     elif main_menu_input == "4":
         print("Goodbye!")
         exit(0)
+
 
     # get the user input to restart the app
     restart_input = None

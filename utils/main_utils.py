@@ -1,6 +1,8 @@
 from utils.Colors import Colors
+import datetime
 from dao.packages_dao import packages_map
 import time
+from utils.log_utils import package_log
 
 #prints main menu
 def print_main_menu(color):
@@ -39,3 +41,31 @@ def print_packages_status():
 #returns the total miles traveled by all trucks
 def get_total_miles_traveled(truck1, truck2, truck3):
     return round(truck1.get_miles_traveled() + truck2.get_miles_traveled() + truck3.get_miles_traveled(),1)
+
+def get_all_by_time():
+    valid_input = False
+    while not valid_input:
+        time_str = input("Please enter a time in the following format (HH:MM am/pm): ")
+        try:
+            time_obj = datetime.datetime.strptime(time_str, "%I:%M %p")
+            valid_input = True
+        except ValueError:
+            print('Invalid input')
+            
+    times = package_log.get_keys()
+    sorted_times = sorted(times, key=lambda x: x, reverse=True)
+    print(Colors.green, "PackageID, Address, City, State, Zip, Delivery Deadline, Mass KILO, PageSpecial Notes, Status, DeliveryTime")
+    print(Colors.black, "--------------------------------------------------------------------------------------------------------------------")
+  
+    for time in sorted_times:
+        if time_obj > datetime.datetime.strptime(time, "%I:%M %p"):
+            for package in package_log.get_value(time):
+                if package.get_status() == "Delivered":
+                    print(Colors.green, package)
+                elif package.get_status() == "Enroute":
+                    print(Colors.yellow, package)
+                else:
+                    print(Colors.default, package) 
+            break
+
+
