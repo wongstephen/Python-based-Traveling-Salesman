@@ -60,3 +60,10 @@ WHILE VARIABLE RUNNING IS TRUE
     ELSE
         SET RUNNING TO FALSE
 ```
+
+## FUTURE IMPROVEMENTS
+
+
+## SCREENSHOTS
+
+<img src="./screenshots/G1_all_package_status_0908am.png">
