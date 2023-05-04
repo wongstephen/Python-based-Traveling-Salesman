@@ -62,7 +62,9 @@ WHILE VARIABLE RUNNING IS TRUE
 ```
 
 ## FUTURE IMPROVEMENTS
-
+- Add GUI to allow user to select options
+- Randomize packages to simulate real-world scenarios
+- Remove hard-coded values
 
 ## SCREENSHOTS
 
