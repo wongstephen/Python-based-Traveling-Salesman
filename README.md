@@ -65,6 +65,8 @@ WHILE VARIABLE RUNNING IS TRUE
 - Add GUI to allow user to select options
 - Randomize packages to simulate real-world scenarios
 - Remove hard-coded values
+- Add more comments to code
+- Add more screenshots to README
 
 ## SCREENSHOTS
 
